@@ -3,13 +3,12 @@ from datetime import datetime
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
 class BaseModel(models.Model):
     add_time = models.DateField(default=datetime.now, verbose_name="添加时间")
 
     class Meta:
         abstract = True
-
-
 
 
 class UserProfile(AbstractUser):
