@@ -27,7 +27,8 @@ INSTALLED_APPS = [
 
     # 自定义 app 注册
     'apps.web.apps.WebConfig',
-    'apps.users.apps.UsersConfig'
+    'apps.users.apps.UsersConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -70,7 +71,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': '666666',
+        'PASSWORD': '123456',
         'NAME': 'photovoltaics',
         # 避免映射数据库时出现警告
         'OPTIONS': {

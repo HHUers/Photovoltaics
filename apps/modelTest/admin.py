@@ -1,5 +1,5 @@
 from django.contrib import admin
-from modelTest.models import *
+from apps.modelTest.models import *
 
 
 class projectOverviewAdmin(admin.ModelAdmin):
