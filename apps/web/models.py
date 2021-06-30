@@ -1,5 +1,5 @@
 from django.db import models
-
+import pandas as pd
 # Create your models here.
 class projectOverview(models.Model):
     """项目名称
@@ -18,6 +18,10 @@ class projectOverview(models.Model):
     projectHostGroup = models.CharField(max_length=50, verbose_name='项目业主集团', blank=True)
     projectDesign = models.CharField(max_length=50, verbose_name='设计单位')
     projectDate = models.CharField(max_length=20, verbose_name='日期')
+
+    class Meta:
+        verbose_name = '项目概况'
+        verbose_name_plural = verbose_name
 
 
 class siteProfile(models.Model):
@@ -42,6 +46,9 @@ class siteProfile(models.Model):
     radiationkwh = models.FloatField(verbose_name='水平太阳总辐射kwh')
     dipAngle = models.IntegerField(verbose_name='最佳辐射量倾角')
 
+    class Meta:
+        verbose_name = '场址概况'
+        verbose_name_plural = verbose_name
 
 class temperature(models.Model):
     """
@@ -66,3 +73,43 @@ class temperature(models.Model):
     maxSpeed = models.FloatField(verbose_name='多年最大风速', blank=True)
     rainyDays = models.FloatField(verbose_name='多年平均雷暴日数', blank=True)
     pollutionLevel = models.FloatField(blank=True, verbose_name='污秽等级')
+
+    class Meta:
+        verbose_name = '主要气象特征要素'
+        verbose_name_plural = verbose_name
+
+
+class PVSystem(models.Model):
+    """
+    项目序号
+    组件
+    "固定安装倾角(发电量倾角)"
+    组串方案
+    逆变器
+
+    组件与逆变器容配比
+    发电量计算
+    "倾斜面辐射量(对应安装倾角)"
+    系统效率
+    25年均上网电量
+    25年均小时数
+    首年利用小时数
+    并网日期
+    """
+    projectNo = models.ForeignKey(to="projectOverview", to_field="projectNo", on_delete=models.CASCADE,
+                                  primary_key=True, verbose_name='项目序号')
+    component = models.IntegerField(verbose_name='组件', blank=True)
+    installedAngle = models.IntegerField(verbose_name='固定安装倾角', blank=True)
+    plan = models.IntegerField(verbose_name='组串方案', blank=True)
+    inverter = models.IntegerField(verbose_name='逆变器', blank=True)
+    capacityRatio = models.FloatField(verbose_name='组件与逆变器容配比', blank=True)
+    inclinedRadiation = models.FloatField(verbose_name='倾斜面辐射量', blank=True)
+    systemEffience = models.FloatField(verbose_name='系统效率', blank=True)
+    avgElectricity = models.FloatField(verbose_name='25年均上网电量', blank=True)
+    avgHours = models.FloatField(verbose_name='25年均小时数', blank=True)
+    firstYearHours = models.FloatField(verbose_name='首年利用小时数', blank=True)
+    firstConnect = models.CharField(max_length=20, verbose_name='首次并网', blank=True)
+    fullConnect = models.CharField(max_length=20, verbose_name='全容量并网', blank=True)
+    class Meta:
+        verbose_name = '光伏发电系统及发电量'
+        verbose_name_plural = verbose_name

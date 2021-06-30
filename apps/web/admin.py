@@ -8,8 +8,23 @@ class projectOverviewAdmin(admin.ModelAdmin):
 
 
 admin.site.register(projectOverview, projectOverviewAdmin)
-admin.site.register(siteProfile)
-admin.site.register(temperature)
 
+
+class siteProfileAdmin(admin.ModelAdmin):
+    list_display=['projectNo', 'location', 'capacity', 'area', 'altitude', 'longtitude', 'latitude', 'radiationMJ', 'radiationkwh', 'dipAngle']
+    search_fields=['projectNo', 'location', 'longtitude', 'latitude']
+
+
+admin.site.register(siteProfile, siteProfileAdmin)
+
+
+class temperatureAdmin(admin.ModelAdmin):
+    list_display=['projectNo', 'avgTemperature', 'maxTemperature', 'minTemperature', 'avgMonthTemperature', 'breakingGroundDepth',
+                  'avgSpeed', 'maxSpeed', 'rainyDays', 'pollutionLevel']
+    search_fields=['projectNo']
+
+
+admin.site.register(temperature, temperatureAdmin)
+admin.site.register(PVSystem)
 
 
