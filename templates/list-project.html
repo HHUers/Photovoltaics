@@ -1,0 +1,34 @@
+{% extends 'base-list.html' %}
+{% load static %}
+
+{% block nav %}
+    项目概况
+{% endblock %}
+
+{% block tkey %}
+    <tr>
+        <th>项目序号</th>
+        <th>项目名称</th>
+        <th>项目类型</th>
+        <th>项目阶段</th>
+        <th>项目业主</th>
+        <th>项目业主所属集团</th>
+        <th>设计单位</th>
+        <th>日期</th>
+    </tr>
+{% endblock %}
+
+{% block tbody %}
+    {% for project in all_projects %}
+        <tr>
+            <td>{{ project.projectNo }}</td>
+            <td>{{ project.projectName }}</td>
+            <td>{{ project.projectType }}</td>
+            <td>{{ project.projectStage }}</td>
+            <td>{{ project.projectHost }}</td>
+            <td>{{ project.projectHostGroup }}</td>
+            <td>{{ project.projectDesign }}</td>
+            <td>{{ project.projectDate }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

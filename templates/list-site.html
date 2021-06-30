@@ -1,0 +1,40 @@
+{% extends 'base-list.html' %}
+{% load static %}
+
+{% block nav %}
+    厂址概况
+{% endblock %}
+
+{% block tkey %}
+    <tr>
+        <th>项目序号</th>
+        <th>项目名称</th>
+        <th>项目地址</th>
+        <th>安装容量</th>
+        <th>用地面积</th>
+        <th>海拔高度</th>
+        <th>经度</th>
+        <th>纬度</th>
+        <th>水平太阳总辐射MJ</th>
+        <th>水平太阳总辐射kwh</th>
+        <th>最佳辐射量倾角</th>
+    </tr>
+{% endblock %}
+
+{% block tbody %}
+    {% for project in all_projects %}
+        <tr>
+            <td>{{ project.projectNo.projectNo }}</td>
+            <td>{{ project.projectNo.projectName }}</td>
+            <td>{{ project.location }}</td>
+            <td>{{ project.capacity }}</td>
+            <td>{{ project.area }}</td>
+            <td>{{ project.altitude }}</td>
+            <td>{{ project.longtitude }}</td>
+            <td>{{ project.latitude }}</td>
+            <td>{{ project.radiationMJ }}</td>
+            <td>{{ project.radiationkwh }}</td>
+            <td>{{ project.dipAngle }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

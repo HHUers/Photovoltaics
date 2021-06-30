@@ -1,0 +1,40 @@
+{% extends 'base-list.html' %}
+{% load static %}
+
+{% block nav %}
+    主要气象特征要素
+{% endblock %}
+
+{% block tkey %}
+    <tr>
+        <th>项目序号</th>
+        <th>项目名称</th>
+        <th>多年平均气温</th>
+        <th>多年极端最高气温</th>
+        <th>多年极端最低气温</th>
+        <th>最热月平均气温</th>
+        <th>多年最大冻土深度</th>
+        <th>多年平均风速</th>
+        <th>多年最大风速</th>
+        <th>多年平均雷暴日数</th>
+        <th>污秽等级</th>
+    </tr>
+{% endblock %}
+
+{% block tbody %}
+    {% for project in all_projects %}
+        <tr>
+            <td>{{ project.projectNo.projectNo }}</td>
+            <td>{{ project.projectNo.projectName }}</td>
+            <td>{{ project.avgTemperature }}</td>
+            <td>{{ project.maxTemperature }}</td>
+            <td>{{ project.minTemperature }}</td>
+            <td>{{ project.avgMonthTemperature }}</td>
+            <td>{{ project.breakingGroundDepth }}</td>
+            <td>{{ project.avgSpeed }}</td>
+            <td>{{ project.maxSpeed }}</td>
+            <td>{{ project.rainyDays }}</td>
+            <td>{{ project.pollutionLevel }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

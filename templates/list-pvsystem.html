@@ -1,0 +1,46 @@
+{% extends 'base-list.html' %}
+{% load static %}
+
+{% block nav %}
+    光伏发电系统及发电量
+{% endblock %}
+
+{% block tkey %}
+    <tr>
+        <th>项目序号</th>
+        <th>项目名称</th>
+        <th>组件</th>
+        <th>固定安装倾角</th>
+        <th>组串方案</th>
+        <th>逆变器</th>
+        <th>组件与逆变器容配比</th>
+        <th>倾斜面辐射量</th>
+        <th>系统效率</th>
+        <th>25年均上网电量</th>
+        <th>25年均小时数</th>
+        <th>首年利用小时数</th>
+        <th>首次并网</th>
+        <th>全容量并网</th>
+    </tr>
+{% endblock %}
+
+{% block tbody %}
+    {% for project in all_projects %}
+        <tr>
+            <td>{{ project.projectNo.projectNo }}</td>
+            <td>{{ project.projectNo.projectName }}</td>
+            <td>{{ project.component }}</td>
+            <td>{{ project.installedAngle }}</td>
+            <td>{{ project.plan }}</td>
+            <td>{{ project.inverter }}</td>
+            <td>{{ project.capacityRatio }}</td>
+            <td>{{ project.inclinedRadiation }}</td>
+            <td>{{ project.systemEffience }}</td>
+            <td>{{ project.avgElectricity }}</td>
+            <td>{{ project.avgHours }}</td>
+            <td>{{ project.firstYearHours }}</td>
+            <td>{{ project.firstConnect }}</td>
+            <td>{{ project.fullConnect }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

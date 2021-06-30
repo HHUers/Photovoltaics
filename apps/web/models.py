@@ -1,6 +1,6 @@
 from django.db import models
-import pandas as pd
-# Create your models here.
+
+
 class projectOverview(models.Model):
     """项目名称
     项目类型
@@ -49,6 +49,7 @@ class siteProfile(models.Model):
     class Meta:
         verbose_name = '场址概况'
         verbose_name_plural = verbose_name
+
 
 class temperature(models.Model):
     """
@@ -110,6 +111,7 @@ class PVSystem(models.Model):
     firstYearHours = models.FloatField(verbose_name='首年利用小时数', blank=True)
     firstConnect = models.CharField(max_length=20, verbose_name='首次并网', blank=True)
     fullConnect = models.CharField(max_length=20, verbose_name='全容量并网', blank=True)
+
     class Meta:
         verbose_name = '光伏发电系统及发电量'
         verbose_name_plural = verbose_name

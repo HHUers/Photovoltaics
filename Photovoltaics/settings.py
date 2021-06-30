@@ -132,3 +132,49 @@ AUTH_USER_MODEL = "users.UserProfile"
 # 主题设置
 SIMPLEUI_DEFAULT_THEME = 'dark.green.css'
 SIMPLEUI_HOME_TITLE = '光伏发电管理'
+SIMPLEUI_HOME_ICON = 'fa fa-user'
+SIMPLEUI_ANALYSIS = False
+SIMPLEUI_HOME_INFO = False
+SIMPLEUI_CONFIG = {
+    'system_keep': True,
+    'menu_display': ['项目概况', '厂址概况', '气象特征要素', '光伏发电系统', '权限认证'],  # 开启排序和过滤功能
+    'menus': [
+        {
+            'name': '项目概况',
+            'icon': 'fas fa-tasks',
+            'url': 'web/projectoverview/'
+        },
+        {
+            'name': '厂址概况',
+            'icon': 'fas fa-map-marker',
+            'url': 'web/siteprofile/'
+        },
+        {
+            'name': '气象特征要素',
+            'icon': 'fas fa-thermometer-empty',
+            'url': 'web/temperature/'
+        },
+        {
+            'name': '光伏发电系统',
+            'icon': 'fas fa-bolt',
+            'url': 'web/pvsystem/'
+        },
+        {
+            'app': 'auth',
+            'name': '权限认证',
+            'icon': 'fas fa-user-shield',
+            'models': [
+                {
+                    'name': '用户',
+                    'icon': 'fa fa-user',
+                    'url': 'users/userprofile/'
+                },
+                {
+                    'name': '组',
+                    'icon': 'fa fa-users',
+                    'url': 'auth/group/'
+                }
+            ]
+        }
+    ]
+}
