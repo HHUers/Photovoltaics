@@ -25,6 +25,15 @@ class temperatureAdmin(admin.ModelAdmin):
 
 
 admin.site.register(temperature, temperatureAdmin)
-admin.site.register(PVSystem)
+
+
+class PVSystemAdmin(admin.ModelAdmin):
+    list_display = ['projectNo', 'component', 'installedAngle', 'plan', 'inverter',
+                    'capacityRatio', 'inclinedRadiation', 'systemEffience', 'avgElectricity',
+                    'avgHours', 'firstYearHours', 'firstConnect', 'fullConnect']
+    search_fields = ['projectNo']
+
+
+admin.site.register(PVSystem, PVSystemAdmin)
 
 
