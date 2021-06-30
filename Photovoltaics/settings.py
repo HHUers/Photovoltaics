@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-40-p(6se5xeka8zzs^3!5s=qqvnlh2^@ua$6ksi(d8dapq+7fa'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -130,3 +130,4 @@ AUTH_USER_MODEL = "users.UserProfile"
 
 # 主题设置
 SIMPLEUI_DEFAULT_THEME = 'dark.green.css'
+SIMPLEUI_HOME_TITLE = '光伏发电管理'
