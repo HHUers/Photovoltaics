@@ -9,6 +9,8 @@ SECRET_KEY = 'django-insecure-40-p(6se5xeka8zzs^3!5s=qqvnlh2^@ua$6ksi(d8dapq+7fa
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -17,7 +19,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     # 第三方 app 注册
     'simpleui',
-
+    'pure_pagination',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -177,4 +179,11 @@ SIMPLEUI_CONFIG = {
             ]
         }
     ]
+}
+
+# django-pure-pagination 分页设置
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 4,  # 分页条当前页前后应该显示的总页数（两边均匀分布，因此要设置为偶数），
+    'MARGIN_PAGES_DISPLAYED': 2,  # 分页条开头和结尾显示的页数
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,  # 当请求了不存在页，显示第一页
 }

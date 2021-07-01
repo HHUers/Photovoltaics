@@ -10,19 +10,19 @@
         <th>项目序号</th>
         <th>项目名称</th>
         <th>项目地址</th>
-        <th>安装容量</th>
-        <th>用地面积</th>
-        <th>海拔高度</th>
-        <th>经度</th>
-        <th>纬度</th>
-        <th>水平太阳总辐射MJ</th>
-        <th>水平太阳总辐射kwh</th>
-        <th>最佳辐射量倾角</th>
+        <th>安装容量(MWp)</th>
+        <th>用地面积(亩)</th>
+        <th>海拔高度(m)</th>
+        <th>经度(°′ ″)</th>
+        <th>纬度(°′ ″)</th>
+        <th>水平太阳总辐射MJ(MJ/m²)</th>
+        <th>水平太阳总辐射kwh(kwh/m²)</th>
+        <th>最佳辐射量倾角(°)</th>
     </tr>
 {% endblock %}
 
 {% block tbody %}
-    {% for project in all_projects %}
+    {% for project in all_projects.object_list %}
         <tr>
             <td>{{ project.projectNo.projectNo }}</td>
             <td>{{ project.projectNo.projectName }}</td>
@@ -37,4 +37,8 @@
             <td>{{ project.dipAngle }}</td>
         </tr>
     {% endfor %}
+{% endblock %}
+
+{% block page %}
+    {{ all_projects.render }}
 {% endblock %}

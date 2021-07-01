@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from django.views import generic
+from pure_pagination import Paginator
+
 from apps.web.models import projectOverview, siteProfile, temperature, PVSystem
 
 
@@ -23,6 +25,14 @@ class ProjectsView(generic.ListView):
 
     def get(self, request, *args, **kwargs):
         all_projects = projectOverview.objects.all()
+
+        try:
+            page = request.GET.get('page', 1)
+        except:
+            page = 1
+        p = Paginator(all_projects, 10, request=request)
+        all_projects = p.page(page)
+
         return render(request, "list-project.html", {
             "all_projects": all_projects
         })
@@ -36,6 +46,14 @@ class SitesView(generic.ListView):
 
     def get(self, request, *args, **kwargs):
         all_projects = siteProfile.objects.all()
+
+        try:
+            page = request.GET.get('page', 1)
+        except:
+            page = 1
+        p = Paginator(all_projects, 10, request=request)
+        all_projects = p.page(page)
+
         return render(request, "list-site.html", {
             "all_projects": all_projects
         })
@@ -49,9 +67,18 @@ class TemperatureView(generic.ListView):
 
     def get(self, request, *args, **kwargs):
         all_projects = temperature.objects.all()
+
+        try:
+            page = request.GET.get('page', 1)
+        except:
+            page = 1
+        p = Paginator(all_projects, 10, request=request)
+        all_projects = p.page(page)
+
         return render(request, "list-temperature.html", {
             "all_projects": all_projects
         })
+
 
 class PvsystemView(generic.ListView):
     '''
@@ -61,9 +88,18 @@ class PvsystemView(generic.ListView):
 
     def get(self, request, *args, **kwargs):
         all_projects = PVSystem.objects.all()
+
+        try:
+            page = request.GET.get('page', 1)
+        except:
+            page = 1
+        p = Paginator(all_projects, 10, request=request)
+        all_projects = p.page(page)
+
         return render(request, "list-pvsystem.html", {
             "all_projects": all_projects
         })
+
 
 def page_not_found(request, exception):
     return render(request, 'error.html')
