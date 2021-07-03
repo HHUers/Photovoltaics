@@ -38,7 +38,6 @@ class ProjectsView(generic.ListView):
 
     def post(self, request, *args, **kwargs):
         name=request.POST.get('projectNameInput')  # 获取用户输入
-        print(name)
 
         all_projects = projectOverview.objects.filter(projectName__contains=name)  # 模糊查询
         try:
@@ -75,7 +74,6 @@ class SitesView(generic.ListView):
 
     def post(self, request, *args, **kwargs):
         name=request.POST.get('projectNameInput')  # 获取用户输入
-        print(name)
 
         projectID=projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0]['projectNo'] # 模糊查询
         # print(projectID)
@@ -115,7 +113,6 @@ class TemperatureView(generic.ListView):
 
     def post(self, request, *args, **kwargs):
         name=request.POST.get('projectNameInput')  # 获取用户输入
-        print(name)
 
         projectID=projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0]['projectNo'] # 模糊查询
         # print(projectID)
@@ -155,7 +152,6 @@ class PvsystemView(generic.ListView):
 
     def post(self, request, *args, **kwargs):
         name=request.POST.get('projectNameInput')  # 获取用户输入
-        print(name)
 
         projectID=projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0]['projectNo'] # 模糊查询
         # print(projectID)
