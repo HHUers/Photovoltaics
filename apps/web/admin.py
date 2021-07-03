@@ -44,7 +44,7 @@ admin.site.register(PVSystem, PVSystemAdmin)
 
 
 class projectApplyForAdmin(admin.ModelAdmin):
-    list_display = ['projectName', 'projectType', 'projectStage', 'projectDesign', 'projectDate','projectStatus']
+    list_display = ['projectName', 'projectType', 'projectStage', 'projectDesign', 'projectDate','projectStatus', 'pass_audit_str']
 
     search_fields = ['projectName']
     list_filter = ['projectName']
