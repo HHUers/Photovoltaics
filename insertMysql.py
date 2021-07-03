@@ -41,12 +41,26 @@ def insert_into_table(index, sql):
         db.rollback()  # 如果发生错误则回滚
     db.close()
 
+def create_table():
+    db = pymysql.connect(host='localhost', user='root', password='123456', database='photovoltaics')
+    cursor = db.cursor()
+    sql5 = "CREATE TABLE projectapplyfor_log(id INT,record CHAR(100))"
+    try:
+        cursor.execute(sql5)
+        db.commit()
+        print("创建成功")
+    except Exception as ex:
+        print(ex)
+        db.rollback()
+    db.close()
+
 
 if __name__ == '__main__':
     sql1 = "INSERT INTO web_projectoverview VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
     sql2 = "INSERT INTO web_siteprofile VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
     sql3 = "INSERT INTO web_temperature VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
     sql4 = "INSERT INTO web_pvsystem VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+
     insert_into_table(0, sql1)
     time.sleep(2)
     insert_into_table(1, sql2)
@@ -54,3 +68,5 @@ if __name__ == '__main__':
     insert_into_table(2, sql3)
     time.sleep(2)
     insert_into_table(3, sql4)
+    time.sleep(2)
+    create_table()

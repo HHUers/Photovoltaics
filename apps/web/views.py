@@ -25,7 +25,6 @@ class ProjectsView(generic.ListView):
 
     def get(self, request, *args, **kwargs):
         all_projects = projectOverview.objects.all()
-
         try:
             page = request.GET.get('page', 1)
         except:
@@ -115,6 +114,16 @@ class Echarts1View(generic.ListView):
         min_tem = list(all_tem.values_list('minTemperature', flat=True))
         max_tem = list(all_tem.values_list('maxTemperature', flat=True))
         return render(request, 'echarts1.html', locals())
+
+
+class ApplyView(generic.ListView):
+    '''
+    申请
+    '''
+    template_name = 'order-add.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'order-add.html', locals())
 
 
 def page_not_found(request, exception):

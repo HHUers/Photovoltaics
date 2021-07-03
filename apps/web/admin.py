@@ -6,7 +6,6 @@ from apps.web.models import *
 # from django.utils import timezone
 
 
-
 # class projectApplyForAdmin(admin.ModelAdmin):
 #     """
 #         *MySQL数据库moderate表：id, 名字, 内容，是否通过, 是否已审核
@@ -18,8 +17,6 @@ from apps.web.models import *
 #     list_per_page = 10
 #     # list_filter过滤指定的字段
 #     list_filter = ('name',)
-
-
 
 
 class projectOverviewAdmin(admin.ModelAdmin):
@@ -69,7 +66,7 @@ class projectApplyForAdmin(admin.ModelAdmin):
     search_fields = ['projectName']
     list_filter = ['projectName', ]
     list_per_page = 10
-# 修改admin页面actions的信息
+    # 修改admin页面actions的信息
     actions = ['mak_pub', 'mak_pub1']
 
     # 判断通过的
@@ -94,7 +91,6 @@ class projectApplyForAdmin(admin.ModelAdmin):
             message_bit = "%s 个申请" % rows_upb
         # 通过多少的数据，显示到admin页面上
         self.message_user(request, "%s 已经通过." % message_bit)
-
 
         ZW1 = projectApplyFor.objects.values_list('projectName', flat=True).distinct()
         ZW2 = projectApplyFor.objects.values_list('projectType', flat=True).distinct()
@@ -144,6 +140,4 @@ class projectApplyForAdmin(admin.ModelAdmin):
         return qs.filter(check=0)
 
 
-
 admin.site.register(projectApplyFor, projectApplyForAdmin)
-

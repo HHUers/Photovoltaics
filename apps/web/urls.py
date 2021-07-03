@@ -34,5 +34,10 @@ urlpatterns = [
         r'echarts1/',
         views.Echarts1View.as_view(),
         name='echarts1'
+    ),
+    path(
+        r'apply/',
+        views.ApplyView.as_view(),
+        name='apply'
     )
 ]
