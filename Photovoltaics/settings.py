@@ -29,8 +29,6 @@ INSTALLED_APPS = [
 
     # 自定义 app 注册
     'apps.web.apps.WebConfig',
-    'apps.users.apps.UsersConfig',
-
 ]
 
 MIDDLEWARE = [
@@ -100,7 +98,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+# 重载AUTH_USER_MODEL
+# AUTH_USER_MODEL = "users.UserProfile"
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -128,8 +127,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# 重载AUTH_USER_MODEL
-AUTH_USER_MODEL = "users.UserProfile"
+
 
 # 主题设置
 SIMPLEUI_DEFAULT_THEME = 'dark.green.css'
@@ -169,7 +167,7 @@ SIMPLEUI_CONFIG = {
                 {
                     'name': '用户',
                     'icon': 'fa fa-user',
-                    'url': 'users/userprofile/'
+                    'url': 'auth/user/'
                 },
                 {
                     'name': '组',

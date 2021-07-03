@@ -101,5 +101,21 @@ class PvsystemView(generic.ListView):
         })
 
 
+class Echarts1View(generic.ListView):
+    '''
+    折线图
+    '''
+    template_name = 'echarts1.html'
+
+    def get(self, request, *args, **kwargs):
+        # all_loc = list(siteProfile.objects.order_by('projectNo').values_list('location', flat=True))
+        # print(all_loc)
+        all_tem = temperature.objects.order_by('projectNo')
+        avg_tem = list(all_tem.values_list('avgTemperature', flat=True))
+        min_tem = list(all_tem.values_list('minTemperature', flat=True))
+        max_tem = list(all_tem.values_list('maxTemperature', flat=True))
+        return render(request, 'echarts1.html', locals())
+
+
 def page_not_found(request, exception):
     return render(request, 'error.html')
