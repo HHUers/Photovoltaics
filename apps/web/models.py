@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import format_html
 
 
 class projectOverview(models.Model):
@@ -139,3 +140,16 @@ class projectApplyFor(models.Model):
     class Meta:
         verbose_name = '项目申请'
         verbose_name_plural = verbose_name
+
+    def pass_audit_str(self):
+        parameter_str = 'name={}&status={}'.format(str(self.projectName), str(self.projectStatus))
+        color_code = ''
+        btn_str = '<a class="btn btn-xs btn-danger" href="{}">' \
+                  '<input name="通过"' \
+                  'type="button" id="passButton" ' \
+                  'title="passButton" value="通过">' \
+                  '</a>'
+
+        return format_html(btn_str, '/pass_audit/?{}'.format(parameter_str))
+
+    pass_audit_str.short_description = '操作'
