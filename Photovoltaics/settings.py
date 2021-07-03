@@ -139,7 +139,7 @@ SIMPLEUI_ANALYSIS = False
 SIMPLEUI_HOME_INFO = False
 SIMPLEUI_CONFIG = {
     'system_keep': True,
-    'menu_display': ['项目概况', '厂址概况', '气象特征要素', '光伏发电系统', '权限认证'],  # 开启排序和过滤功能
+    'menu_display': ['项目概况', '厂址概况', '气象特征要素', '光伏发电系统', '项目申请',  '权限认证'],  # 开启排序和过滤功能
     'menus': [
         {
             'name': '项目概况',
@@ -160,6 +160,11 @@ SIMPLEUI_CONFIG = {
             'name': '光伏发电系统',
             'icon': 'fas fa-bolt',
             'url': 'web/pvsystem/'
+        },
+        {
+            'name': '项目申请',
+            'icon': 'fas fa-server',
+            'url': 'web/projectapplyfor/'
         },
         {
             'app': 'auth',

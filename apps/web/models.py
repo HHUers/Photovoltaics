@@ -115,3 +115,27 @@ class PVSystem(models.Model):
     class Meta:
         verbose_name = '光伏发电系统及发电量'
         verbose_name_plural = verbose_name
+
+
+class projectApplyFor(models.Model):
+    """项目名称
+    项目类型
+    项目阶段
+    项目业主
+    项目业主所属集团
+    设计单位
+    日期
+    """
+    #projectNo = models.IntegerField(primary_key=True, verbose_name='项目序号')
+    projectName = models.CharField(max_length=100, verbose_name='项目名称', primary_key=True)
+    projectType = models.CharField(max_length=20, verbose_name='项目类型')
+    projectStage = models.CharField(max_length=20, verbose_name='项目阶段')
+    projectHost = models.CharField(max_length=30, verbose_name='项目业主', blank=True)
+    projectHostGroup = models.CharField(max_length=50, verbose_name='项目业主集团', blank=True)
+    projectDesign = models.CharField(max_length=50, verbose_name='设计单位')
+    projectDate = models.CharField(max_length=20, verbose_name='日期')
+    projectStatus = models.CharField(max_length=20, verbose_name='状态', default='待审核')
+
+    class Meta:
+        verbose_name = '项目申请'
+        verbose_name_plural = verbose_name
