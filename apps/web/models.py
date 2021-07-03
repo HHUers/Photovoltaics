@@ -127,6 +127,7 @@ class projectApplyFor(models.Model):
     日期
     """
     # projectNo = models.IntegerField(primary_key=True, verbose_name='项目序号')
+    id = models.IntegerField()
     projectName = models.CharField(max_length=100, verbose_name='项目名称', primary_key=True)
     projectType = models.CharField(max_length=20, verbose_name='项目类型')
     projectStage = models.CharField(max_length=20, verbose_name='项目阶段')
@@ -134,8 +135,20 @@ class projectApplyFor(models.Model):
     projectHostGroup = models.CharField(max_length=50, verbose_name='项目业主集团', blank=True)
     projectDesign = models.CharField(max_length=50, verbose_name='设计单位')
     projectDate = models.CharField(max_length=20, verbose_name='日期')
-    projectStatus = models.CharField(max_length=20, verbose_name='状态', default='待审核')
+    status = models.IntegerField()
+    check = models.IntegerField()
 
     class Meta:
         verbose_name = '项目申请'
+        verbose_name_plural = verbose_name
+
+
+class projectApplyForLog(models.Model):
+    id = models.IntegerField(primary_key=True, verbose_name='编号')
+    record = models.CharField(max_length=30, verbose_name='记录')
+
+    class Meta:
+        managed = False
+        db_table = 'projectApplyFor_log'
+        verbose_name = '申请审核'
         verbose_name_plural = verbose_name
