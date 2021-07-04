@@ -33,13 +33,13 @@
     {% block header %}
         <div class="container">
             <div class="logo">
-                <a href="/">光伏发电</a></div>
+                <a href="/">光伏发电项目检索</a></div>
             <div class="left_open">
                 <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
             </div>
             <ul class="layui-nav right" lay-filter="">
                 <li class="layui-nav-item">
-                    <a href="/admin/" target="_blank">Login in</a>
+                    <a href="/admin/" target="_blank">后台管理</a>
             </ul>
         </div>
     {% endblock %}
@@ -103,7 +103,7 @@
             <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
                 <ul class="layui-tab-title">
                     <li class="home">
-                        <i class="layui-icon">&#xe68e;</i>我的桌面
+                        <i class="layui-icon">&#xe68e;</i>项目总览
                     </li>
                 </ul>
                 <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
@@ -115,7 +115,7 @@
                 </div>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                        <iframe src='/welcome/' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
                     </div>
                 </div>
                 <div id="tab_show"></div>
