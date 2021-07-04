@@ -5,64 +5,76 @@
     <body>
     <div class="layui-fluid">
         <div class="layui-row">
-            <form class="layui-form" method="post">
-                {% csrf_token %}
-                <div class="layui-form-item">
-                    <label for="projectName" class="layui-form-label">
-                        <span class="x-red">*</span>项目名称</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="projectName" name="projectName" required=""
-                               autocomplete="off" class="layui-input"></div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="projectType" class="layui-form-label">
-                        <span class="x-red">*</span>项目类型</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="projectType" name="projectType" required=""
-                               autocomplete="off" class="layui-input"></div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="projectStage" class="layui-form-label">
-                        <span class="x-red">*</span>项目阶段</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="projectStage" name="projectStage" required=""
-                               autocomplete="off"
-                               class="layui-input"></div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="projectHost" class="layui-form-label">项目业主</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="projectHost" name="projectHost" autocomplete="off" class="layui-input">
+            {% if  flag %}
+                <blockquote class="layui-elem-quote">
+                    已经提交到后台等待审核
+                </blockquote>
+                <blockquote class="layui-elem-quote">
+                    审核通过将添加到前台界面
+                </blockquote>
+            {% else %}
+                <form class="layui-form" method="post">
+                    {% csrf_token %}
+                    <div class="layui-form-item">
+                        <label for="projectName" class="layui-form-label">
+                            <span class="x-red">*</span>项目名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="projectName" name="projectName" required=""
+                                   autocomplete="off" class="layui-input"></div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="projectHostGroup" class="layui-form-label">项目业主集团</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="projectHostGroup" name="projectHostGroup" autocomplete="off"
-                               class="layui-input">
+                    <div class="layui-form-item">
+                        <label for="projectType" class="layui-form-label">
+                            <span class="x-red">*</span>项目类型</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="projectType" name="projectType" required=""
+                                   autocomplete="off" class="layui-input"></div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="projectDesign" class="layui-form-label">
-                        <span class="x-red">*</span>设计单位</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="projectDesign" name="projectDesign" required=""
-                               autocomplete="off"
-                               class="layui-input"></div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="projectDate" class="layui-form-label">
-                        <span class="x-red">*</span>日期</label>
-                    <div class="layui-input-inline">
-                        <input type="text" id="projectDate" name="projectDate" required=""
-                               autocomplete="off"
-                               class="layui-input"></div>
-                </div>
-                <div class="layui-form-item">
-                    <label for="L_repass" class="layui-form-label"></label>
-                    <button class="layui-btn" lay-filter="add" lay-submit="" type="submit">增加</button>
-                </div>
-            </form>
+                    <div class="layui-form-item">
+                        <label for="projectStage" class="layui-form-label">
+                            <span class="x-red">*</span>项目阶段</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="projectStage" name="projectStage" required=""
+                                   autocomplete="off"
+                                   class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="projectHost" class="layui-form-label">项目业主</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="projectHost" name="projectHost" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="projectHostGroup" class="layui-form-label">项目业主集团</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="projectHostGroup" name="projectHostGroup" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="projectDesign" class="layui-form-label">
+                            <span class="x-red">*</span>设计单位</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="projectDesign" name="projectDesign" required=""
+                                   autocomplete="off"
+                                   class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="projectDate" class="layui-form-label">
+                            <span class="x-red">*</span>日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="projectDate" name="projectDate" required=""
+                                   autocomplete="off"
+                                   class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="L_repass" class="layui-form-label"></label>
+                        <button class="layui-btn" type="submit">增加</button>
+                    </div>
+                </form>
+            {% endif %}
+
+
         </div>
     </div>
 

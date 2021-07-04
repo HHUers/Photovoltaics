@@ -94,13 +94,14 @@ class projectApplyForAdmin(admin.ModelAdmin):
             message_bit = "%s 个申请" % rows_upb
         # 通过多少的数据，显示到admin页面上
         self.message_user(request, "%s 已经通过." % message_bit)
-
+        ZW0 = projectApplyFor.objects.values_list('id', flat=True).distinct()
         ZW1 = projectApplyFor.objects.values_list('projectName', flat=True).distinct()
         ZW2 = projectApplyFor.objects.values_list('projectType', flat=True).distinct()
         ZW3 = projectApplyFor.objects.values_list('projectStage', flat=True).distinct()
         ZW4 = projectApplyFor.objects.values_list('projectDesign', flat=True).distinct()
         ZW5 = projectApplyFor.objects.values_list('projectDate', flat=True).distinct()
-        u1 = projectOverview(projectNo=12, projectName=ZW1[0], projectType=ZW2[0], projectStage=ZW3[0],
+        print(ZW0[0],ZW1[0],ZW2[0])
+        u1 = projectOverview(projectNo=ZW0[0], projectName=ZW1[0], projectType=ZW2[0], projectStage=ZW3[0],
                              projectDesign=ZW4[0], projectDate=ZW5[0])
 
         u1.save()

@@ -39,5 +39,10 @@ urlpatterns = [
         r'apply/',
         views.ApplyView.as_view(),
         name='apply'
+    ),
+    path(
+        r'welcome/',
+        views.WelcomeView.as_view(),
+        name='welcome'
     )
 ]

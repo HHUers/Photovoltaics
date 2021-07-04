@@ -1,10 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from django.db.models import Max, Count
 from django.views import generic
 from pure_pagination import Paginator
 
-from apps.web.models import projectOverview, siteProfile, temperature, PVSystem
+from apps.web.models import projectOverview, siteProfile, temperature, PVSystem, projectApplyFor
 
 
 class IndexView(generic.ListView):
@@ -15,6 +15,30 @@ class IndexView(generic.ListView):
 
     def get(self, request, *args, **kwargs):
         return render(request, 'index.html', locals())
+
+
+class WelcomeView(generic.ListView):
+    '''
+    主页
+    '''
+    template_name = 'welcome.html'
+
+    def get(self, request, *args, **kwargs):
+        all_tem = temperature.objects.order_by('projectNo')
+        avg_tem = list(all_tem.values_list('avgTemperature', flat=True))
+        min_tem = list(all_tem.values_list('minTemperature', flat=True))
+        max_tem = list(all_tem.values_list('maxTemperature', flat=True))
+        avgSpeed = list(all_tem.values_list('avgSpeed', flat=True))
+        avgSpeed = [0 if i is None else i for i in avgSpeed]
+        maxSpeed = list(all_tem.values_list('maxSpeed', flat=True))
+        maxSpeed = [0 if i is None else i for i in maxSpeed]
+        rainyDays = list(all_tem.values_list('rainyDays', flat=True))
+        rainyDays = [0 if i is None else i for i in rainyDays]
+        #print(avgSpeed)
+        #print(maxSpeed)
+        user_post_accept = projectApplyFor.objects.filter(check=1).count()
+        user_post_wait = projectApplyFor.objects.filter(check=0).count()
+        return render(request, 'welcome.html', locals())
 
 
 class ProjectsView(generic.ListView):
@@ -37,7 +61,7 @@ class ProjectsView(generic.ListView):
         })
 
     def post(self, request, *args, **kwargs):
-        name=request.POST.get('projectNameInput')  # 获取用户输入
+        name = request.POST.get('projectNameInput')  # 获取用户输入
 
         all_projects = projectOverview.objects.filter(projectName__contains=name)  # 模糊查询
         try:
@@ -73,9 +97,10 @@ class SitesView(generic.ListView):
         })
 
     def post(self, request, *args, **kwargs):
-        name=request.POST.get('projectNameInput')  # 获取用户输入
+        name = request.POST.get('projectNameInput')  # 获取用户输入
 
-        projectID=projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0]['projectNo'] # 模糊查询
+        projectID = projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0][
+            'projectNo']  # 模糊查询
         # print(projectID)
 
         all_projects = siteProfile.objects.filter(projectNo_id=projectID)
@@ -90,6 +115,7 @@ class SitesView(generic.ListView):
         return render(request, "list-site.html", {
             "all_projects": all_projects
         })
+
 
 class TemperatureView(generic.ListView):
     '''
@@ -112,9 +138,10 @@ class TemperatureView(generic.ListView):
         })
 
     def post(self, request, *args, **kwargs):
-        name=request.POST.get('projectNameInput')  # 获取用户输入
+        name = request.POST.get('projectNameInput')  # 获取用户输入
 
-        projectID=projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0]['projectNo'] # 模糊查询
+        projectID = projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0][
+            'projectNo']  # 模糊查询
         # print(projectID)
 
         all_projects = temperature.objects.filter(projectNo_id=projectID)
@@ -129,6 +156,7 @@ class TemperatureView(generic.ListView):
         return render(request, "list-temperature.html", {
             "all_projects": all_projects
         })
+
 
 class PvsystemView(generic.ListView):
     '''
@@ -151,9 +179,10 @@ class PvsystemView(generic.ListView):
         })
 
     def post(self, request, *args, **kwargs):
-        name=request.POST.get('projectNameInput')  # 获取用户输入
+        name = request.POST.get('projectNameInput')  # 获取用户输入
 
-        projectID=projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0]['projectNo'] # 模糊查询
+        projectID = projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0][
+            'projectNo']  # 模糊查询
         # print(projectID)
 
         all_projects = PVSystem.objects.filter(projectNo_id=projectID)
@@ -193,6 +222,29 @@ class ApplyView(generic.ListView):
     template_name = 'order-add.html'
 
     def get(self, request, *args, **kwargs):
+        return render(request, 'order-add.html', locals())
+
+    def post(self, request, *args, **kwargs):
+        new_project = projectApplyFor()
+        prn = projectOverview.objects.aggregate(Max('projectNo'))['projectNo__max'] + 1
+        cnt = list(projectApplyFor.objects.order_by('id').values_list('id', flat=True))
+        if len(cnt) == 0:
+            id = prn
+        else:
+            id = max(prn, cnt[-1] + 1)
+        #print(id)
+        new_project.id = id
+        new_project.projectName = request.POST.get('projectName', '')
+        new_project.projectType = request.POST.get('projectType', '')
+        new_project.projectStage = request.POST.get('projectStage', '')
+        new_project.projectHost = request.POST.get('projectHost', '')
+        new_project.projectHostGroup = request.POST.get('projectHostGroup', '')
+        new_project.projectDesign = request.POST.get('projectDesign', '')
+        new_project.projectDate = request.POST.get('projectDate', '')
+        new_project.status = 0
+        new_project.check = 0
+        new_project.save()
+        flag = True
         return render(request, 'order-add.html', locals())
 
 
