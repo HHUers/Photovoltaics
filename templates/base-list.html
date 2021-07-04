@@ -21,12 +21,13 @@
                     {#    搜索    #}
                     <div class="layui-card-body ">
                         {% block search %}
-                            <form class="layui-form layui-col-space5">
+                            <form class="layui-form layui-col-space5" method="post">
+                                {% csrf_token %}
                                 <div class="layui-input-inline layui-show-xs-block">
-                                    <input class="layui-input" placeholder="开始日" name="start" id="start"></div>
-                                <div class="layui-input-inline layui-show-xs-block">
-                                    <input class="layui-input" placeholder="截止日" name="end" id="end"></div>
-                                <div class="layui-input-inline layui-show-xs-block">
+                                    <input class="layui-input" placeholder="项目名称" name="projectNameInput" id="projectNameInput" ></div>
+                                <!--div class="layui-input-inline layui-show-xs-block">
+                                    <input class="layui-input" placeholder="截止日" name="end" id="end"></div-->
+                                <!-- class="layui-input-inline layui-show-xs-block">
                                     <select name="contrller">
                                         <option>支付方式</option>
                                         <option>支付宝</option>
@@ -34,7 +35,7 @@
                                         <option>货到付款</option>
                                     </select>
                                 </div>
-                                <div class="layui-input-inline layui-show-xs-block">
+                                <div-- class="layui-input-inline layui-show-xs-block">
                                     <select name="contrller">
                                         <option value="">订单状态</option>
                                         <option value="0">待确认</option>
@@ -44,12 +45,12 @@
                                         <option value="4">已完成</option>
                                         <option value="5">已作废</option>
                                     </select>
-                                </div>
-                                <div class="layui-input-inline layui-show-xs-block">
+                                </div-->
+                                <!--div class="layui-input-inline layui-show-xs-block">
                                     <input type="text" name="username" placeholder="请输入订单号" autocomplete="off"
-                                           class="layui-input"></div>
+                                           class="layui-input"></div-->
                                 <div class="layui-input-inline layui-show-xs-block">
-                                    <button class="layui-btn" lay-submit="" lay-filter="sreach">
+                                    <button class="layui-btn" lay-submit="" lay-filter="sreach" type="submit">
                                         <i class="layui-icon">&#xe615;</i></button>
                                 </div>
                             </form>

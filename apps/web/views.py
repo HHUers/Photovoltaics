@@ -25,7 +25,21 @@ class ProjectsView(generic.ListView):
 
     def get(self, request, *args, **kwargs):
         all_projects = projectOverview.objects.all()
+        try:
+            page = request.GET.get('page', 1)
+        except:
+            page = 1
+        p = Paginator(all_projects, 10, request=request)
+        all_projects = p.page(page)
 
+        return render(request, "list-project.html", {
+            "all_projects": all_projects
+        })
+
+    def post(self, request, *args, **kwargs):
+        name=request.POST.get('projectNameInput')  # 获取用户输入
+
+        all_projects = projectOverview.objects.filter(projectName__contains=name)  # 模糊查询
         try:
             page = request.GET.get('page', 1)
         except:
@@ -58,6 +72,24 @@ class SitesView(generic.ListView):
             "all_projects": all_projects
         })
 
+    def post(self, request, *args, **kwargs):
+        name=request.POST.get('projectNameInput')  # 获取用户输入
+
+        projectID=projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0]['projectNo'] # 模糊查询
+        # print(projectID)
+
+        all_projects = siteProfile.objects.filter(projectNo_id=projectID)
+
+        try:
+            page = request.GET.get('page', 1)
+        except:
+            page = 1
+        p = Paginator(all_projects, 10, request=request)
+        all_projects = p.page(page)
+
+        return render(request, "list-site.html", {
+            "all_projects": all_projects
+        })
 
 class TemperatureView(generic.ListView):
     '''
@@ -79,6 +111,24 @@ class TemperatureView(generic.ListView):
             "all_projects": all_projects
         })
 
+    def post(self, request, *args, **kwargs):
+        name=request.POST.get('projectNameInput')  # 获取用户输入
+
+        projectID=projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0]['projectNo'] # 模糊查询
+        # print(projectID)
+
+        all_projects = temperature.objects.filter(projectNo_id=projectID)
+
+        try:
+            page = request.GET.get('page', 1)
+        except:
+            page = 1
+        p = Paginator(all_projects, 10, request=request)
+        all_projects = p.page(page)
+
+        return render(request, "list-temperature.html", {
+            "all_projects": all_projects
+        })
 
 class PvsystemView(generic.ListView):
     '''
@@ -88,6 +138,25 @@ class PvsystemView(generic.ListView):
 
     def get(self, request, *args, **kwargs):
         all_projects = PVSystem.objects.all()
+
+        try:
+            page = request.GET.get('page', 1)
+        except:
+            page = 1
+        p = Paginator(all_projects, 10, request=request)
+        all_projects = p.page(page)
+
+        return render(request, "list-pvsystem.html", {
+            "all_projects": all_projects
+        })
+
+    def post(self, request, *args, **kwargs):
+        name=request.POST.get('projectNameInput')  # 获取用户输入
+
+        projectID=projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0]['projectNo'] # 模糊查询
+        # print(projectID)
+
+        all_projects = PVSystem.objects.filter(projectNo_id=projectID)
 
         try:
             page = request.GET.get('page', 1)
@@ -115,6 +184,16 @@ class Echarts1View(generic.ListView):
         min_tem = list(all_tem.values_list('minTemperature', flat=True))
         max_tem = list(all_tem.values_list('maxTemperature', flat=True))
         return render(request, 'echarts1.html', locals())
+
+
+class ApplyView(generic.ListView):
+    '''
+    申请
+    '''
+    template_name = 'order-add.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'order-add.html', locals())
 
 
 def page_not_found(request, exception):
