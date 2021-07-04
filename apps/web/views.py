@@ -34,8 +34,8 @@ class WelcomeView(generic.ListView):
         maxSpeed = [0 if i is None else i for i in maxSpeed]
         rainyDays = list(all_tem.values_list('rainyDays', flat=True))
         rainyDays = [0 if i is None else i for i in rainyDays]
-        print(avgSpeed)
-        print(maxSpeed)
+        #print(avgSpeed)
+        #print(maxSpeed)
         user_post_accept = projectApplyFor.objects.filter(check=1).count()
         user_post_wait = projectApplyFor.objects.filter(check=0).count()
         return render(request, 'welcome.html', locals())
@@ -228,7 +228,12 @@ class ApplyView(generic.ListView):
         new_project = projectApplyFor()
         prn = projectOverview.objects.aggregate(Max('projectNo'))['projectNo__max'] + 1
         cnt = list(projectApplyFor.objects.order_by('id').values_list('id', flat=True))
-        new_project.id = max(prn, cnt[-1] + 1)
+        if len(cnt) == 0:
+            id = prn
+        else:
+            id = max(prn, cnt[-1] + 1)
+        #print(id)
+        new_project.id = id
         new_project.projectName = request.POST.get('projectName', '')
         new_project.projectType = request.POST.get('projectType', '')
         new_project.projectStage = request.POST.get('projectStage', '')
