@@ -2,7 +2,8 @@ from django.db import models
 
 
 class projectOverview(models.Model):
-    """项目名称
+    """
+    项目名称
     项目类型
     项目阶段
     项目业主
@@ -10,10 +11,22 @@ class projectOverview(models.Model):
     设计单位
     日期
     """
+    typeChoice = {
+        (0, '山地光伏'),
+        (1, '平地光伏'),
+        (2, '屋顶光伏')
+    }
+    StageChoice = {
+        (0, '可研'),
+        (1, '初设'),
+        (2, '施工图'),
+        (3, '技术评判'),
+        (4, '后评价')
+    }
     projectNo = models.IntegerField(primary_key=True, verbose_name='项目序号')
     projectName = models.CharField(max_length=100, verbose_name='项目名称')
-    projectType = models.CharField(max_length=20, verbose_name='项目类型')
-    projectStage = models.CharField(max_length=20, verbose_name='项目阶段')
+    projectType = models.CharField(max_length=20, verbose_name='项目类型', choices=typeChoice)
+    projectStage = models.CharField(max_length=20, verbose_name='项目阶段', choices=StageChoice)
     projectHost = models.CharField(max_length=30, verbose_name='项目业主', blank=True, null=True)
     projectHostGroup = models.CharField(max_length=50, verbose_name='项目业主集团', blank=True, null=True)
     projectDesign = models.CharField(max_length=50, verbose_name='设计单位')
@@ -87,7 +100,6 @@ class PVSystem(models.Model):
     "固定安装倾角(发电量倾角)"
     组串方案
     逆变器
-
     组件与逆变器容配比
     发电量计算
     "倾斜面辐射量(对应安装倾角)"
@@ -126,11 +138,23 @@ class projectApplyFor(models.Model):
     设计单位
     日期
     """
+    typeChoice = {
+        (0, '山地光伏'),
+        (1, '平地光伏'),
+        (2, '屋顶光伏')
+    }
+    StageChoice = {
+        (0, '可研'),
+        (1, '初设'),
+        (2, '施工图'),
+        (3, '技术评判'),
+        (4, '后评价')
+    }
     # projectNo = models.IntegerField(primary_key=True, verbose_name='项目序号')
     id = models.IntegerField()
     projectName = models.CharField(max_length=100, verbose_name='项目名称', primary_key=True)
-    projectType = models.CharField(max_length=20, verbose_name='项目类型')
-    projectStage = models.CharField(max_length=20, verbose_name='项目阶段')
+    projectType = models.CharField(max_length=20, verbose_name='项目类型',choices=typeChoice)
+    projectStage = models.CharField(max_length=20, verbose_name='项目阶段', choices=StageChoice)
     projectHost = models.CharField(max_length=30, verbose_name='项目业主', blank=True)
     projectHostGroup = models.CharField(max_length=50, verbose_name='项目业主集团', blank=True)
     projectDesign = models.CharField(max_length=50, verbose_name='设计单位')
