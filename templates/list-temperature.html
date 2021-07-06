@@ -5,6 +5,32 @@
     主要气象特征要素
 {% endblock %}
 
+{% block search %}
+    <form class="layui-form layui-col-space5" method="post">
+        {% csrf_token %}
+        <div class="layui-input-inline layui-show-xs-block">
+            <input class="layui-input" placeholder="项目名称" name="projectNameInput"
+                   id="projectNameInput">
+        </div>
+        <div class="layui-input-inline layui-show-xs-block">
+            <input class="layui-input" placeholder="多年平均气温大于" name="avgTemperature"
+                   id="avgTemperature">
+        </div>
+        <div class="layui-input-inline layui-show-xs-block">
+            <input class="layui-input" placeholder="多年最大冻土深度(cm)大于" name="breakingGroundDepth"
+                   id="breakingGroundDepth">
+        </div>
+        <div class="layui-input-inline layui-show-xs-block">
+            <input class="layui-input" placeholder="多年平均风速大于" name="avgSpeed"
+                   id="avgSpeed">
+        </div>
+        <div class="layui-input-inline layui-show-xs-block">
+            <button class="layui-btn" lay-submit="" lay-filter="sreach" type="submit">
+                <i class="layui-icon">&#xe615;</i></button>
+        </div>
+    </form>
+{% endblock %}
+
 {% block tkey %}
     <tr>
         <th>项目序号</th>

@@ -34,8 +34,8 @@ class WelcomeView(generic.ListView):
         maxSpeed = [0 if i is None else i for i in maxSpeed]
         rainyDays = list(all_tem.values_list('rainyDays', flat=True))
         rainyDays = [0 if i is None else i for i in rainyDays]
-        #print(avgSpeed)
-        #print(maxSpeed)
+        # print(avgSpeed)
+        # print(maxSpeed)
         user_post_accept = projectApplyFor.objects.filter(check=1).count()
         user_post_wait = projectApplyFor.objects.filter(check=0).count()
         return render(request, 'welcome.html', locals())
@@ -61,9 +61,23 @@ class ProjectsView(generic.ListView):
         })
 
     def post(self, request, *args, **kwargs):
-        name = request.POST.get('projectNameInput')  # 获取用户输入
+        projectName = request.POST.get('projectNameInput')  # 获取用户输入项目名称
+        projectType = request.POST.get('projectType')  # 获取用户输入项目类型
+        projectStage= request.POST.get('projectStage')  # 获取用户输入项目阶段
+        projectDesign= request.POST.get('projectDesign')  # 获取用户输入项目阶段
 
-        all_projects = projectOverview.objects.filter(projectName__contains=name)  # 模糊查询
+        dic = dict()  # 定一个字典用于保存前端发送过来的查询条件
+        if projectName:
+            dic['projectName__contains'] = projectName
+        if projectType:
+            dic['projectType__contains'] = projectType
+        if projectStage:
+            dic['projectStage__contains'] = projectStage
+        if projectDesign:
+            dic['projectDesign__contains'] = projectDesign
+
+        all_projects = projectOverview.objects.filter(**dic)  # 获得查询结果
+
         try:
             page = request.GET.get('page', 1)
         except:
@@ -97,13 +111,27 @@ class SitesView(generic.ListView):
         })
 
     def post(self, request, *args, **kwargs):
-        name = request.POST.get('projectNameInput')  # 获取用户输入
+        projectName = request.POST.get('projectNameInput')  # 获取用户输入项目名称
+        print(projectName)
+        location = request.POST.get('location')
+        capacity= request.POST.get('capacity')
+        area= request.POST.get('area')
+        radiationMJ=request.POST.get('radiationMJ')
 
-        projectID = projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0][
-            'projectNo']  # 模糊查询
-        # print(projectID)
-
-        all_projects = siteProfile.objects.filter(projectNo_id=projectID)
+        dic = dict()  # 定一个字典用于保存前端发送过来的查询条件
+        if projectName:
+            dic['projectNo_id'] = projectOverview.objects.filter(projectName__contains=projectName).values('projectNo')[0][
+                'projectNo']
+        if location:
+            dic['location__contains'] = location
+        if capacity:
+            dic['capacity__gt'] = capacity
+        if area:
+            dic['area__gt'] = area
+        if radiationMJ:
+            dic['radiationMJ__gt'] = radiationMJ
+        print(dic)
+        all_projects = siteProfile.objects.filter(**dic)  # 获得查询结果
 
         try:
             page = request.GET.get('page', 1)
@@ -138,13 +166,25 @@ class TemperatureView(generic.ListView):
         })
 
     def post(self, request, *args, **kwargs):
-        name = request.POST.get('projectNameInput')  # 获取用户输入
+        projectName = request.POST.get('projectNameInput')  # 获取用户输入项目名称
+        print(projectName)
+        avgTemperature = request.POST.get('avgTemperature')
+        breakingGroundDepth= request.POST.get('breakingGroundDepth')
+        avgSpeed= request.POST.get('avgSpeed')
 
-        projectID = projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0][
-            'projectNo']  # 模糊查询
-        # print(projectID)
+        dic = dict()  # 定一个字典用于保存前端发送过来的查询条件
+        if projectName:
+            dic['projectNo_id'] = projectOverview.objects.filter(projectName__contains=projectName).values('projectNo')[0][
+                'projectNo']
+        if avgTemperature:
+            dic['avgTemperature__gt'] = avgTemperature
+        if breakingGroundDepth:
+            dic['breakingGroundDepth__gt'] = breakingGroundDepth
+        if avgSpeed:
+            dic['avgSpeed__gt'] = avgSpeed
 
-        all_projects = temperature.objects.filter(projectNo_id=projectID)
+        print(dic)
+        all_projects = temperature.objects.filter(**dic)  # 获得查询结果
 
         try:
             page = request.GET.get('page', 1)
@@ -156,7 +196,6 @@ class TemperatureView(generic.ListView):
         return render(request, "list-temperature.html", {
             "all_projects": all_projects
         })
-
 
 class PvsystemView(generic.ListView):
     '''
@@ -179,13 +218,25 @@ class PvsystemView(generic.ListView):
         })
 
     def post(self, request, *args, **kwargs):
-        name = request.POST.get('projectNameInput')  # 获取用户输入
+        projectName = request.POST.get('projectNameInput')  # 获取用户输入项目名称
+        print(projectName)
+        component = request.POST.get('component')
+        installedAngle= request.POST.get('installedAngle')
+        avgElectricity= request.POST.get('avgElectricity')
 
-        projectID = projectOverview.objects.filter(projectName__contains=name).values('projectNo')[0][
-            'projectNo']  # 模糊查询
-        # print(projectID)
+        dic = dict()  # 定一个字典用于保存前端发送过来的查询条件
+        if projectName:
+            dic['projectNo_id'] = projectOverview.objects.filter(projectName__contains=projectName).values('projectNo')[0][
+                'projectNo']
+        if component:
+            dic['component__gt'] = component
+        if installedAngle:
+            dic['installedAngle__gt'] = installedAngle
+        if avgElectricity:
+            dic['avgElectricity__gt'] = avgElectricity
 
-        all_projects = PVSystem.objects.filter(projectNo_id=projectID)
+        print(dic)
+        all_projects = PVSystem.objects.filter(**dic)  # 获得查询结果
 
         try:
             page = request.GET.get('page', 1)
@@ -232,7 +283,7 @@ class ApplyView(generic.ListView):
             id = prn
         else:
             id = max(prn, cnt[-1] + 1)
-        #print(id)
+        # print(id)
         new_project.id = id
         new_project.projectName = request.POST.get('projectName', '')
         new_project.projectType = request.POST.get('projectType', '')

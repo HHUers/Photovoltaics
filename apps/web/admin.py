@@ -193,7 +193,8 @@ class projectApplyForAdmin(admin.ModelAdmin):
             message_bit = "%s 个申请" % rows_upb
         # 通过多少的数据，显示到admin页面上
         self.message_user(request, "%s 拒绝通过." % message_bit)
-
+        ZW1 = projectApplyFor.objects.values_list('projectName', flat=True).distinct()
+        projectOverview.objects.filter(projectName=ZW1[0]).delete()
     # 更改Action的内容为通过
     mak_pub1.short_description = "未通过"
 
